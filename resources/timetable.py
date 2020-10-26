@@ -21,7 +21,7 @@ class Timetable(Resource):
         file_name = "{}_{}_{}_{}.csv".format(data['college'], data['branch'], data['std'],
                                              data['div'])
 
-        csv_path = 'assets/{}'.format(file_name)
+        csv_path = './assets/csv_files/{}'.format(file_name)
         my_dict = TimeModel.csv_to_json(csv_path)
 
         final_dict = {
