@@ -1,0 +1,9 @@
+DAY,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday
+t1-t2,M-III,CG,ADS,MP,PRACT,PRACT
+t2-t3,PPL,MP,M-III,CG,M-III,ADS
+t3-t4,Lunch Break,Lunch Break,Lunch Break,Lunch Break,Lunch Break,Lunch Break
+t4-t5,CG,PPL,MP,ADS,PRACT,PRACT
+t5-t6,ADS,M-III,CG,MP,PPL,ADS
+t6-t7,Club Hour,Club Hour,Club Hour,Club Hour,Club Hour,Club Hour
+t7-t8,M-III,CG,ADS,ADS,PRACT,PRACT
+t8-t9,SC,SC,SC,SC,SC,SC
