@@ -21,10 +21,14 @@ class TimeModel:
                 count = 1
                 while count < len(row):
                     new_period = {}
+
                     new_period.setdefault('course', row[count])
-                    new_period.setdefault('time', first_row[count])
-                    new_day_list.append(new_period)
+                    # new_period.setdefault('time', first_row[count])
+                    new_period.setdefault('timeFrom', first_row[count].split('-')[0])
+                    new_period.setdefault('timeTo', first_row[count].split('-')[1])
+
                     count += 1
+                    new_day_list.append(new_period)
                     my_dict.setdefault(row[0], new_day_list)
 
         return my_dict
