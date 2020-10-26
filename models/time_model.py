@@ -15,13 +15,16 @@ class TimeModel:
         my_dict = {}
         with open(csv_loc) as file:
             reader = csv.reader(file)
-            row1 = next(reader)
+            first_row = next(reader)
             for row in reader:
-                new = {}
+                new_day_list = []
                 count = 1
                 while count < len(row):
-                    new.update({row1[count]: row[count]})
+                    new_period = {}
+                    new_period.setdefault('course', row[count])
+                    new_period.setdefault('time', first_row[count])
+                    new_day_list.append(new_period)
                     count += 1
-                my_dict.setdefault(row[0], new)
+                    my_dict.setdefault(row[0], new_day_list)
 
         return my_dict
