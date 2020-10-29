@@ -9,7 +9,14 @@ class Upload(Resource):
 
     @staticmethod
     def post():
-        file_name = 'sitrc_comp_se_b.csv'
+
+        college = request.form.get('college')
+        branch = request.form.get('branch')
+        std = request.form.get('std')
+        div = request.form.get('div')
+
+        file_name = '{}_{}_{}_{}.csv'.format(college, branch, std, div)
+
         if request.files:
             csv_file = request.files['csv_file']
             try:
@@ -21,7 +28,7 @@ class Upload(Resource):
                 return {'message': 'Upload Correct file'}
 
             try:
-                csv_file.save(os.path.join("./assets/csv_files/", csv_file.filename))
+                csv_file.save(os.path.join("./assets/csv_files/", file_name))
             except:
                 return {'message': 'Internal Error in saving File'}
 

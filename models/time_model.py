@@ -27,8 +27,10 @@ class TimeModel:
 
                         new_period.setdefault('course', row[count].split('/')[0])
                         new_period.setdefault('teacher', row[count].split('/')[1] or "")
-                        new_period.setdefault('timeFrom', first_row[count].split('-')[0])
-                        new_period.setdefault('timeTo', first_row[count].split('-')[1])
+                        new_period.setdefault('timeFromHour', first_row[count].split('-')[0].split(':')[0])
+                        new_period.setdefault('timeFromMinute', first_row[count].split('-')[0].split(':')[1])
+                        new_period.setdefault('timeToHour', first_row[count].split('-')[1].split(':')[0])
+                        new_period.setdefault('timeToMinute', first_row[count].split('-')[1].split(':')[1])
 
                         count += 1
                         day_list.append(new_period)
