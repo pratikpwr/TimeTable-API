@@ -1,4 +1,5 @@
 import csv
+from db import db
 
 
 # noinspection PyBroadException
@@ -26,7 +27,6 @@ class TimeModel:
 
                         new_period.setdefault('course', row[count].split('/')[0])
                         new_period.setdefault('teacher', row[count].split('/')[1] or "")
-                        # new_period.setdefault('time', first_row[count])
                         new_period.setdefault('timeFrom', first_row[count].split('-')[0])
                         new_period.setdefault('timeTo', first_row[count].split('-')[1])
 

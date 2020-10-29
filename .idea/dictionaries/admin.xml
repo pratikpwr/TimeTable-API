@@ -2,7 +2,9 @@
   <dictionary name="admin">
     <words>
       <w>pract</w>
+      <w>reqparse</w>
       <w>sitrc</w>
+      <w>sqlalchemy</w>
     </words>
   </dictionary>
 </component>
