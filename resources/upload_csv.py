@@ -32,5 +32,12 @@ class Upload(Resource):
             except:
                 return {'message': 'Internal Error in saving File'}
 
-            final_dict = TimeModel.csv_to_json('./assets/csv_files/{}'.format(file_name))
+            my_dict = TimeModel.csv_to_json('./assets/csv_files/{}'.format(file_name))
+            final_dict = {
+                "college": college,
+                "branch": branch,
+                "std": std,
+                "div": div,
+                "timetable": my_dict
+            }
             return final_dict
