@@ -30,10 +30,7 @@ class Upload(Resource):
             if file_end not in ['csv', 'CSV']:
                 return {'message': 'Upload Correct file'}
 
-            try:
-                csv_file.save(os.path.join("./assets/csv_files/", file_name))
-            except:
-                return {'message': 'Internal Error in saving File'}
+            csv_file.save(os.path.join("./assets/csv_files/", file_name))
 
             tt_dict = TimeModel.csv_to_json('./assets/csv_files/{}'.format(file_name))
 
