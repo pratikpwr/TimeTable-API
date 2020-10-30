@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from db import db
-
+import os
 from resources.timetable import Timetable
 from resources.upload_csv import Upload
 
@@ -10,12 +10,7 @@ app.config["IMAGE_UPLOADS"] = "./assets/"
 api = Api(app)
 
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.DB'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'farCry'
 
