@@ -6,9 +6,7 @@ from resources.timetable import Timetable
 from resources.upload_csv import Upload
 
 app = Flask(__name__)
-app.config["IMAGE_UPLOADS"] = "./assets/"
 api = Api(app)
-
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -19,4 +17,10 @@ api.add_resource(Upload, '/upload')
 
 if __name__ == '__main__':
     db.init_app(app)
-    app.run(debug=True)
+
+    if app.config['DEBUG']:
+        @app.before_first_request
+        def create_tables():
+            db.create_all()
+
+    app.run()
