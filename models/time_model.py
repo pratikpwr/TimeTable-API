@@ -3,12 +3,33 @@ from db import db
 
 
 # noinspection PyBroadException
-class TimeModel:
-    def __init__(self, college, branch, std, div):
+class TimeModel(db.Model):
+    __tablename__ = 'timetables'
+    __table_args__ = {'extend_existing': True}
+
+    id = db.Column(db.Integer, primary_key=True)
+    college = db.Column(db.String)
+    branch = db.Column(db.String)
+    std = db.Column(db.String)
+    div = db.Column(db.String)
+    tt_name = db.Column(db.String)
+    json_string = db.Column(db.String)
+
+    def __init__(self, college, branch, std, div, tt_name, json_string):
         self.college = college
         self.branch = branch
         self.std = std
         self.div = div
+        self.tt_name = tt_name
+        self.json_string = json_string
+
+    @classmethod
+    def find_by_tt_name(cls, tt_name):
+        return cls.query.filter_by(tt_name=tt_name).first()
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
 
     # temporary method
     @staticmethod
