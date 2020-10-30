@@ -21,7 +21,22 @@ class Upload(Resource):
         file_name = '{}_{}_{}_{}.csv'.format(college, branch, std, div)
 
         if request.files:
-            tt_dict = self.read_csv(file_name, request.files['csv_file'])
+            csv_file = request.files['csv_file']
+            try:
+                file_end = csv_file.filename.rsplit('.')[1]
+            except:
+                return {'message': 'Upload Correct file'}
+
+            if file_end not in ['csv', 'CSV']:
+                return {'message': 'Upload Correct file'}
+
+            try:
+                csv_file.save(os.path.join("./assets/csv_files/", file_name))
+            except:
+                return {'message': 'Internal Error in saving File'}
+
+            tt_dict = TimeModel.csv_to_json('./assets/csv_files/{}'.format(file_name))
+
             final_dict = {
                 "college": college,
                 "branch": branch,
@@ -40,22 +55,3 @@ class Upload(Resource):
             tt.json_string = json_string
         TimeModel.save_to_db(tt)
         return final_dict
-
-    @staticmethod
-    def read_csv(new_filename, csv_open):
-        csv_file = csv_open
-        try:
-            file_end = csv_file.filename.rsplit('.')[1]
-        except:
-            return {'message': 'Upload Correct file'}
-
-        if file_end not in ['csv', 'CSV']:
-            return {'message': 'Upload Correct file'}
-
-        try:
-            csv_file.save(os.path.join("./assets/csv_files/", new_filename))
-        except:
-            return {'message': 'Internal Error in saving File'}
-
-        my_dict = TimeModel.csv_to_json('./assets/csv_files/{}'.format(new_filename))
-        return my_dict
