@@ -13,11 +13,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'farCry'
 
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
-
 api.add_resource(TimeTableRes, '/timetable/<string:college>/<string:branch>/<string:std>/<string:div>')
 api.add_resource(WorkRes, '/work/<string:college>/<string:branch>/<string:std>/<string:div>')
 api.add_resource(WorkDocRes, '/work/<doc_id>')
