@@ -3,7 +3,7 @@ from db import db
 
 
 # noinspection PyBroadException
-class TimeModel(db.Model):
+class TimeTableModel(db.Model):
     __tablename__ = 'timetables'
     __table_args__ = {'extend_existing': True}
 
@@ -31,7 +31,6 @@ class TimeModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    # temporary method
     @staticmethod
     def csv_to_json(csv_loc):
 

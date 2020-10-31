@@ -5,6 +5,7 @@
       <w>reqparse</w>
       <w>sitrc</w>
       <w>sqlalchemy</w>
+      <w>tablename</w>
     </words>
   </dictionary>
 </component>
