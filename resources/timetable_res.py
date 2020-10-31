@@ -9,6 +9,7 @@ from models.timetable_model import TimeTableModel
 # noinspection PyBroadException
 class TimeTableRes(Resource):
 
+    # returns timetable json based on data of user
     @staticmethod
     def get(college, branch, std, div):
         file_name = "{}_{}_{}_{}.csv".format(college, branch, std, div)
@@ -25,6 +26,7 @@ class TimeTableRes(Resource):
         }
         return final_dict
 
+    # gets data from csv and return timetable json
     @staticmethod
     def post(college, branch, std, div):
 
@@ -45,7 +47,7 @@ class TimeTableRes(Resource):
 
             csv_file.save(os.path.join("./assets/csv_files/", file_name))
 
-            tt_dict = TimeTableModel.csv_to_json('./assets/csv_files/{}'.format(file_name))
+            tt_dict = TimeTableModel.csv_to_dict('./assets/csv_files/{}'.format(file_name))
 
             final_dict = {
                 "college": college,
@@ -63,5 +65,5 @@ class TimeTableRes(Resource):
                                 tt_name=file_name)
         else:
             tt.json_string = json_string
-        TimeTableModel.save_to_db(tt)
+        TimeTableModel.save_tt_to_db(tt)
         return final_dict

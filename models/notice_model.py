@@ -1,8 +1,8 @@
 from db import db
 
 
-class WorkModel(db.Model):
-    __tablename__ = 'works'
+class NoticeModel(db.Model):
+    __tablename__ = 'notices'
     __table_args__ = {'extend_existing': True}
 
     id = db.Column(db.Integer, primary_key=True)
@@ -11,19 +11,17 @@ class WorkModel(db.Model):
     std = db.Column(db.String)
     div = db.Column(db.String)
     date = db.Column(db.String)
-    work_title = db.Column(db.String)
-    work_desc = db.Column(db.String)
-    subject = db.Column(db.String)
+    notice_title = db.Column(db.String)
+    notice_desc = db.Column(db.String)
     doc = db.Column(db.LargeBinary)
 
-    def __init__(self, college, branch, std, div, work_title, work_desc, subject, date, doc):
+    def __init__(self, college, branch, std, div, notice_title, notice_desc, date, doc):
         self.college = college
         self.branch = branch
         self.std = std
         self.div = div
-        self.work_title = work_title
-        self.work_desc = work_desc
-        self.subject = subject
+        self.notice_title = notice_title
+        self.notice_desc = notice_desc
         self.date = date
         self.doc = doc
 
@@ -32,9 +30,9 @@ class WorkModel(db.Model):
         return cls.query.filter_by(id=doc_id).first()
 
     @classmethod
-    def find_work_of_requested_user(cls, college, branch, std, div):
+    def find_notice_of_requested_user(cls, college, branch, std, div):
         return cls.query.filter_by(college=college, branch=branch, std=std, div=div).all()
 
-    def save_work_to_db(self):
+    def save_notice_to_db(self):
         db.session.add(self)
         db.session.commit()

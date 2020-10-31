@@ -6,15 +6,7 @@ from io import BytesIO
 
 class WorkRes(Resource):
 
-    # two methods required to send assignment data to user
-
-    # 1. only data is send like id and other things
-    # list of all work is send acc to user class and div
-
-    # 2. to views timetable in app new get/or any request is done
-    # which returns only pdf.
-    # take id as parameter for request to search pdf in DB
-
+    # returns list of assignments of selected user
     @staticmethod
     def get(college, branch, std, div):
         new_list = []
@@ -32,6 +24,7 @@ class WorkRes(Resource):
         return {'assignment': new_list}
 
     # add logic that some fields can be empty like doc, desc
+    # saves the  data and pdf to DB
     @staticmethod
     def post(college, branch, std, div):
         work_title = request.form.get('work_title')
@@ -39,6 +32,11 @@ class WorkRes(Resource):
         work_date = request.form.get('date')
         subject_name = request.form.get('subject')
         file = request.files['doc']
+
+        file_end = file.filename.split('.')[1]
+
+        if file_end not in ['pdf', 'PDF']:
+            return {'message': 'Correct Upload PDF file.'}
 
         work = WorkModel(college=college, branch=branch, std=std, div=div, work_title=work_title, work_desc=work_desc,
                          subject=subject_name, date=work_date, doc=file.read())
@@ -54,5 +52,4 @@ class WorkDocRes(Resource):
     @staticmethod
     def get(doc_id):
         file_data = WorkModel.find_doc_from_id(doc_id=doc_id)
-
         return send_file(BytesIO(file_data.doc), attachment_filename='file.pdf', as_attachment=True)

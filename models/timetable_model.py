@@ -27,12 +27,12 @@ class TimeTableModel(db.Model):
     def find_by_tt_name(cls, tt_name):
         return cls.query.filter_by(tt_name=tt_name).first()
 
-    def save_to_db(self):
+    def save_tt_to_db(self):
         db.session.add(self)
         db.session.commit()
 
     @staticmethod
-    def csv_to_json(csv_loc):
+    def csv_to_dict(csv_loc):
 
         my_dict = {}
         try:
